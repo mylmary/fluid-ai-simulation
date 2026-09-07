@@ -1,0 +1,21 @@
+16.7s 1 Test size:  173
+16.7s 2 Forced HIT size:  128
+16.7s 3 Param Var. size:  144
+16.7s 4 num_workers:  0
+16.7s 5 X shape:  torch.Size([1, 4, 16, 16, 16])
+16.7s 6 Y shape:  torch.Size([1, 4, 128, 128, 128])
+16.7s 7 Effective Batch size:  1
+17.0s 8 Reading model: rcan_approx0.8M_8xSR.pt
+23.4s 9 /opt/conda/lib/python3.10/site-packages/traitlets/traitlets.py:2930: FutureWarning: --Exporter.preprocessors=["remove_papermill_header.RemovePapermillHeader"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.
+23.4s 10 warn(
+23.4s 11 [NbConvertApp] WARNING | Config option `kernel_spec_manager_class` not recognized by `NbConvertApp`.
+23.5s 12 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+23.8s 13 [NbConvertApp] Writing 423360 bytes to __notebook__.ipynb
+25.1s 14 /opt/conda/lib/python3.10/site-packages/traitlets/traitlets.py:2930: FutureWarning: --Exporter.preprocessors=["nbconvert.preprocessors.ExtractOutputPreprocessor"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.
+25.1s 15 warn(
+25.1s 16 [NbConvertApp] WARNING | Config option `kernel_spec_manager_class` not recognized by `NbConvertApp`.
+25.1s 17 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+25.9s 18 [NbConvertApp] Support files will be in __results___files/
+25.9s 19 [NbConvertApp] Making directory __results___files
+25.9s 20 [NbConvertApp] Making directory __results___files
+25.9s 21 [NbConvertApp] Writing 405958 bytes to __results__.html
