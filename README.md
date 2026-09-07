@@ -3,46 +3,63 @@
 A production-grade, containerized 3D Physics-Informed Neural Network (PINN) pipeline designed to model non-linear transient fluid flows, advection-diffusion transport boundaries, and high-speed wake interactions. Unlike traditional data-isolated deep learning architectures that cause non-physical mass leaks, this implementation embeds partial differential equations (PDEs) directly into the model's loss landscape, forcing real-time predictions to preserve mass continuity and respect physical conservation laws.
 
 This codebase is fully cross-optimized to scale seamlessly from cloud infrastructure (**Kaggle GPU Clusters**) down to local containerized runtimes (**Docker on CUDA**) and edge deployment platforms (**Unity Sentis** for real-time game engines).
----## 🚀 Interactive Workspace & Architecture Overview### 🖥️ Execution Tracks* **Kaggle Optimized:** Pre-configured out-of-the-box to train on high-performance P100/T4 accelerators utilizing the mounted `blastnet-momentum128-3d-sr-dataset` space.* **Local Containerization:** Built on top of NVIDIA's optimized CUDA execution layers for deterministic, reproducible local research environments.* **Real-Time Edge Deployment:** Automatically compiles raw PyTorch weights into a universal optimized ONNX model targeted at game-loop deployment.
 
+---
 
-+----------------------+
-| 5-Channel Input 3D | --> [Velocity U, V, W, Smoke, Vehicle Mask]
-+----------------------+
-|
-v
-+----------------------+
-| 3D Convolutional | --> Latent Feature Topology Extraction
-| Feature Layers |
-+----------------------+
-|
-v
-+----------------------+
-| 4-Channel Output 3D | --> Predicted [U, V, W, Smoke] at State t+1
-+----------------------+
-|
-+---------------------+---------------------+
-| |
-v v
-+-------------------------+ +-------------------------+
-| Data-Driven Objective | | Physics-Informed Loss |
-| (Temporal Regression) | | (Residual Evaluator) |
-+-------------------------+ +-------------------------+
-| |
-+---------------------+---------------------+
-|
-v
-+--------------------------+
-| Unified Loss Optimization| --> Total = Data + λ₁ Div + λ₂ Transport
-+--------------------------+
-|
-v
-+--------------------------+
-| Gradient Norm Clipping | --> max_norm = 1.0 (Inline Circuit Breaker)
-+--------------------------+
-|
-+--> [Backpropagation Weight Adjustment Pass]
+## 🚀 Interactive Workspace & Architecture Overview
 
+### 🖥️ Execution Tracks
+
+* **Kaggle Optimized:** Pre-configured out-of-the-box to train on high-performance P100/T4 accelerators utilizing the mounted `blastnet-momentum128-3d-sr-dataset` space.
+* **Local Containerization:** Built on top of NVIDIA's optimized CUDA execution layers for deterministic, reproducible local research environments.
+* **Real-Time Edge Deployment:** Automatically compiles raw PyTorch weights into a universal optimized ONNX model targeted at game-loop deployment.
+
+```text
+                           +----------------------+
+
+                           |  5-Channel Input 3D  | --> [Velocity U, V, W, Smoke, Vehicle Mask]
+                           +----------------------+
+                                      |
+                                      v
+                           +----------------------+
+
+                           |   3D Convolutional   | --> Latent Feature Topology Extraction
+                           |    Feature Layers    |
+                           +----------------------+
+                                      |
+                                      v
+                           +----------------------+
+
+                           |  4-Channel Output 3D | --> Predicted [U, V, W, Smoke] at State t+1
+                           +----------------------+
+                                      |
+                +---------------------+---------------------+
+
+                |                                           |
+                v                                           v
+   +-------------------------+                 +-------------------------+
+
+   |  Data-Driven Objective  |                 |  Physics-Informed Loss  |
+   |   (Temporal Regression) |                 |   (Residual Evaluator)  |
+   +-------------------------+                 +-------------------------+
+
+                |                                           |
+                +---------------------+---------------------+
+                                      |
+                                      v
+                         +--------------------------+
+
+                         | Unified Loss Optimization| --> Total = Data + λ₁ Div + λ₂ Transport
+                         +--------------------------+
+                                      |
+                                      v
+                         +--------------------------+
+
+                         |  Gradient Norm Clipping  | --> max_norm = 1.0 (Inline Circuit Breaker)
+                         +--------------------------+
+                                      |
+                                      +--> [Backpropagation Weight Adjustment Pass]
+```
 
 ---
 
@@ -50,21 +67,21 @@ v
 
 The network optimizes its parameterization weight blocks by evaluating a unified multi-objective loss function. This balancing layout ensures predictions closely mirror training states while strictly minimizing mathematical residuals derived from physical laws:
 
-\[\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{data}} + \lambda_1 \mathcal{L}_{\text{divergence}} + \lambda_2 \mathcal{L}_{\text{transport}}\]
+$$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{data}} + \lambda_1 \mathcal{L}_{\text{divergence}} + \lambda_2 \mathcal{L}_{\text{transport}}$$
 
 ### 1. Mass Conservation / Incompressibility Constraint
+
 To ensure physical fluid properties are preserved within transient configurations, the model calculates spatial central differences across individual velocity tensor outputs. The constraint penalizes non-zero fluid divergence, preventing unphysical mass creation or deletion:
 
-\[\mathcal{L}_{\text{divergence}} = \frac{1}{N}\sum \left( \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z} \right)^2\]
+$$\mathcal{L}_{\text{divergence}} = \frac{1}{N}\sum \left( \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z} \right)^2$$
 
 ### 2. Scalar Advection-Diffusion Transport
-The continuous tracking of smoke density boundaries (φ) is explicitly bound to multi-phase advection-diffusion formulations, validating how well predictions balance kinetic pushing forces against dissipation metrics:
 
-\[\mathcal{L}_{\text{transport}} = \frac{1}{N}\sum \left( \left[ u\frac{\partial \phi}{\partial x} + v\frac{\partial \phi}{\partial y} + w\frac{\partial \phi}{\partial z} \right] - D\nabla^2 \phi \right)^2\]
+The continuous tracking of smoke density boundaries ($\phi$) is explicitly bound to multi-phase advection-diffusion formulations, validating how well predictions balance kinetic pushing forces against dissipation metrics:
 
-Where D represents the predefined isotropic diffusion coefficient.
+$$\mathcal{L}_{\text{transport}} = \frac{1}{N}\sum \left( \left[ u\frac{\partial \phi}{\partial x} + v\frac{\partial \phi}{\partial y} + w\frac{\partial \phi}{\partial z} \right] - D\nabla^2 \phi \right)^2$$
 
----
+Where $D$ represents the predefined isotropic diffusion coefficient.
 
 ## ⚡ Stabilization Engineering & Boundary Safeguards
 
