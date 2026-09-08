@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D PINN Fluid Dynamics Portfolio</title>
+    <script src="https://tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased">
+
+    <!-- Header Section -->
+    <header class="max-w-5xl mx-auto px-6 py-12 border-b border-slate-800">
+        <h1 class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent sm:text-5xl">
+            3D-PINN-Aerodynamics
+        </h1>
+        <p class="mt-4 text-xl text-slate-400 max-w-3xl">
+            Physics-Informed Neural Network pipeline optimizing real-time volumetric transient flows and 3D boundary layer wake interactions.
+        </p>
+        <div class="mt-6 flex gap-4">
+            <a href="https://github.com" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-lg font-medium transition">View Source Code</a>
+            <span class="px-4 py-2 bg-slate-800 rounded-lg text-slate-300 font-mono text-sm flex items-center border border-slate-700">Unity Sentis Edge Optimized</span>
+        </div>
+    </header>
+
+    <!-- Technical Deep Dive Grid -->
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-16">
+        
+        <!-- Key Metrics Section -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
+                <h3 class="text-slate-400 text-sm font-medium uppercase tracking-wider">Inference Speed</h3>
+                <p class="text-3xl font-bold mt-2 text-emerald-400">&lt; 30ms / Frame</p>
+                <p class="text-slate-400 text-sm mt-1">Real-time edge evaluation deployment.</p>
+            </div>
+            <div class="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
+                <h3 class="text-slate-400 text-sm font-medium uppercase tracking-wider">Grid Architecture</h3>
+                <p class="text-3xl font-bold mt-2 text-blue-400">128 × 128 × 128</p>
+                <p class="text-slate-400 text-sm mt-1">Volumetric 5-channel voxel tracking tensors.</p>
+            </div>
+            <div class="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
+                <h3 class="text-slate-400 text-sm font-medium uppercase tracking-wider">Core Method</h3>
+                <p class="text-3xl font-bold mt-2 text-purple-400">SciML / PINN</p>
+                <p class="text-slate-400 text-sm mt-1">Mass conservation via custom PDE loss loops.</p>
+            </div>
+        </section>
+
+        <!-- Methodological Focus -->
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold text-slate-200">Mathematical Foundations</h2>
+            <p class="text-slate-400 leading-relaxed">
+                By integrating governing partial differential equations directly into the neural network's loss landscape, the architecture minimizes residuals for Navier-Stokes mass conservation and scalar advection-diffusion transport. This allows the network to maintain physical consistency near sharp boundary layers and dynamic wake zones without strict grid dependencies.
+            </p>
+        </section>
+
+    </main>
+
+    <footer class="max-w-5xl mx-auto px-6 py-8 border-t border-slate-800 text-center text-sm text-slate-500">
+        © 2026 mylmary · Built for Scientific Machine Learning (SciML) Showcase
+    </footer>
+
+</body>
+</html>
