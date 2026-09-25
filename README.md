@@ -1,14 +1,14 @@
 
-# 3D-PINN-Aerodynamics: Physics-Informed Neural Network for Real-Time Volumetric Fluid Simulations
+# Physics-Informed Neural Network for Real-Time Volumetric Fluid Simulations
 A production-grade, containerized 3D Physics-Informed Neural Network (PINN) pipeline designed to model non-linear transient fluid flows, advection-diffusion transport boundaries, and high-speed wake interactions. Unlike traditional data-isolated deep learning architectures that cause non-physical mass leaks, this implementation embeds partial differential equations (PDEs) directly into the model's loss landscape, forcing real-time predictions to preserve mass continuity and respect physical conservation laws.
 
 This codebase is fully cross-optimized to scale seamlessly from cloud infrastructure (**Kaggle GPU Clusters**) down to local containerized runtimes (**Docker on CUDA**) and edge deployment platforms (**Unity Sentis** for real-time game engines).
 
 ---
 
-## 🚀 Interactive Workspace & Architecture Overview
+##  Interactive Workspace & Architecture Overview
 
-### 🖥️ Execution Tracks
+###  Execution Tracks
 
 * **Kaggle Optimized:** Pre-configured out-of-the-box to train on high-performance P100/T4 accelerators utilizing the mounted `blastnet-momentum128-3d-sr-dataset` space.
 * **Local Containerization:** Built on top of NVIDIA's optimized CUDA execution layers for deterministic, reproducible local research environments.
@@ -63,7 +63,7 @@ This codebase is fully cross-optimized to scale seamlessly from cloud infrastruc
 
 ---
 
-## 🔬 Mathematical Formulation & Loss Modeling
+##  Mathematical Formulation & Loss Modeling
 
 The network optimizes its parameterization weight blocks by evaluating a unified multi-objective loss function. This balancing layout ensures predictions closely mirror training states while strictly minimizing mathematical residuals derived from physical laws:
 
@@ -83,7 +83,7 @@ $$\mathcal{L}_{\text{transport}} = \frac{1}{N}\sum \left( \left[ u\frac{\partial
 
 Where $D$ represents the predefined isotropic diffusion coefficient.
 
-## ⚡ Stabilization Engineering & Boundary Safeguards
+##  Stabilization Engineering & Boundary Safeguards
 
 Standard neural networks struggle when evaluating physical equations at steep, discontinuous geometric steps (0.0 → 1.0 binary solid vehicle masks), often resulting in gradient explosion profiles. This engine implements three major numerical safeguards to maintain training stability:
 
@@ -93,7 +93,7 @@ Standard neural networks struggle when evaluating physical equations at steep, d
 
 ---
 
-## 📦 Local Deployment & Environment Bootstrapping
+##  Local Deployment & Environment Bootstrapping
 
 ### Core Workspace Directory Layout
 ```text
@@ -122,7 +122,7 @@ docker run --gpus all \
 
 ---
 
-## 🎮 Game Engine Integration Pipeline (Unity Deploy)
+##  Game Engine Integration Pipeline (Unity Deploy)
 
 Upon completion of the specified training epochs, the execution pipeline automatically tracks the execution graph using `torch.onnx.export` to output an optimized `VehicleFluidPINN.onnx` runtime asset. 
 
@@ -133,7 +133,7 @@ Upon completion of the specified training epochs, the execution pipeline automat
 
 ---
 
-## 📊 Industrial Benchmark Comparison
+##  Industrial Benchmark Comparison
 
 | Evaluation Metric | Conventional Finite Volume CFD (OpenFOAM) | This 3D PINN Engine |
 | :--- | :--- | :--- |
@@ -144,7 +144,7 @@ Upon completion of the specified training epochs, the execution pipeline automat
 
 ---
 
-### 📝 References
+###  References
 Duraisamy, K., Iaccarino, G., & Xiao, H. (2019). Turbulence Modeling in the Age of Data. *Annual Review of Fluid Mechanics*, 51, 357-377.
 
 
